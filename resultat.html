@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resultat · Subtonal AI</title>
+<meta name="description" content="82% precision, 86% routing, 0 hallucineringar. Blindvaliderat på riktiga transkript.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero { padding: 72px 0 56px; border-bottom: 1px solid var(--line-soft); }
+  .page-hero h1 { font-size: clamp(38px, 5.4vw, 64px); line-height: 1.04; max-width: 880px; }
+  .page-hero h1 em { font-style: italic; color: var(--accent); }
+  .page-hero .lede { margin-top: 24px; max-width: 660px; }
+
+  /* Big stats */
+  .big-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 56px;
+  }
+  .big-stat {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    padding: 40px 32px;
+    border-radius: 4px;
+  }
+  .big-stat .num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(72px, 9vw, 130px);
+    line-height: 0.95;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+  }
+  .big-stat .num .unit { font-size: 0.36em; color: var(--muted); font-style: normal; margin-left: 6px; }
+  .big-stat h3 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 18px;
+    font-weight: 500;
+  }
+  .big-stat p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-top: 14px;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 820px) { .big-stats { grid-template-columns: 1fr; } }
+
+  /* method box */
+  .method {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  @media (max-width: 820px) { .method { grid-template-columns: 1fr; gap: 32px; } }
+
+  .method-card {
+    border: 1px solid var(--line-dark);
+    padding: 32px;
+  }
+  .method-card .num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 36px;
+    color: var(--accent-soft);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .method-card h4 {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+  .method-card p { font-size: 14px; line-height: 1.6; color: #c8c8cd; }
+  .method-card + .method-card { margin-top: 16px; }
+
+  /* lead examples */
+  .leads-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+  }
+  @media (max-width: 820px) { .leads-grid { grid-template-columns: 1fr; } }
+
+  .lead-mini {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .lead-mini-head {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 22px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lead-mini-body { padding: 22px 24px 26px; }
+  .lead-mini .quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: 14px;
+    margin-bottom: 16px;
+  }
+  .lead-mini .signal {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .lead-mini .opening {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--highlight);
+    padding: 12px 14px;
+    border-radius: 3px;
+  }
+  .lead-mini .opening-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 6px;
+  }
+
+  /* validity strip */
+  .validity {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+    padding: 48px 56px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+  }
+  .validity h3 {
+    font-family: var(--serif);
+    font-size: 30px;
+    color: var(--paper);
+    line-height: 1.15;
+  }
+  .validity h3 em { color: var(--accent-soft); font-style: italic; }
+  .validity p { color: #c8c8cd; font-size: 15px; line-height: 1.65; }
+  .validity p + p { margin-top: 12px; }
+  @media (max-width: 820px) {
+    .validity { grid-template-columns: 1fr; padding: 32px 28px; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="shell row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> Subtonal</a>
+    <button class="nav-toggle" aria-label="Meny" onclick="document.getElementById('nav').classList.toggle('open')">Meny</button>
+    <nav class="nav" id="nav">
+      <a href="index.html">Hem</a>
+      <a href="sa-fungerar.html">Så fungerar det</a>
+      <a href="resultat.html" class="active">Resultat</a>
+      <a href="pilot.html">Pilot</a>
+      <a href="om-oss.html">Om oss</a>
+      <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="shell">
+      <div class="eyebrow">§ Resultat</div>
+      <h1>Mätningar, inte <em>marknadspåståenden.</em></h1>
+      <p class="lede">
+        Vi läser signaler skarpare än vad en generisk AI gör. Inte för att vi har en bättre modell, utan för att vi har byggt en pipeline kring den. Här är siffrorna, och varför systemet plockar upp det som andra missar.
+      </p>
+
+      <div class="big-stats">
+        <div class="big-stat">
+          <div class="num"><em>82</em><span class="unit">%</span></div>
+          <h3>Precision</h3>
+          <p>8 av 10 signaler är verkliga affärsmöjligheter, inte brus. Resten filtreras bort innan leverans.</p>
+        </div>
+        <div class="big-stat">
+          <div class="num"><em>86</em><span class="unit">%</span></div>
+          <h3>Routing-accuracy</h3>
+          <p>Nästan 9 av 10 signaler hamnar i rätt bolag direkt. Hardgate-arkitekturen ser till att intern konkurrens filtreras bort.</p>
+        </div>
+        <div class="big-stat">
+          <div class="num"><em>0</em></div>
+          <h3>Hallucineringar</h3>
+          <p>Inga signaler bygger på saker kunden inte sa. Varje träff är förankrad i ett direkt citat från transkriptet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section class="section dark">
+    <div class="shell">
+      <div class="method">
+        <div>
+          <div class="eyebrow on-dark">§ Vad som gör analysen skarpare</div>
+          <h2 class="h1" style="color: var(--paper);">En pipeline, <em class="accent">inte ett enskilt LLM-anrop.</em></h2>
+          <p class="body on-dark" style="margin-top: 22px;">
+            Generisk AI läser ett transkript och skapar en sammanfattning. Det är inte samma sak som att hitta cross-sell-signaler. Det kräver att systemet förstår vad varje bolag i koncernen faktiskt säljer, vilka behov som passar var, och hur man skiljer en köpsignal från ett påstående i förbifarten.
+          </p>
+          <p class="body on-dark" style="margin-top: 14px;">
+            Mätningarna kommer från blindeval på riktiga säljtranskript i skarp koncernmiljö. Resultaten validerades av personer som inte sett systemets träffar i förväg. Samma test kan ni köra på era egna transkript som en del av piloten.
+          </p>
+        </div>
+
+        <div>
+          <div class="method-card">
+            <div class="num">01</div>
+            <h4>Latenta behov, inte explicita</h4>
+            <p>De flesta kunder säger inte "vi behöver ett nytt CRM". De säger "vi knackar in ordrar manuellt". Subtonal är tränad på att läsa under ytan: friktion i processer, manuella moment, förbehåll om verktyg. Det är där de varma leadsen finns.</p>
+          </div>
+          <div class="method-card">
+            <div class="num">02</div>
+            <h4>Hardgates filtrerar bort brus</h4>
+            <p>En signal måste passera flera lager regler innan den blir ett lead. Filtrering av intern konkurrens, krav på direktcitat, kontroll mot bolagets faktiska tjänster. Det är därför precision håller sig hög, inte bara recall.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD EXAMPLES -->
+  <section class="section">
+    <div class="shell">
+      <div class="section-tag">§ Konkreta träffar</div>
+      <h2 class="h1" style="max-width: 760px;">
+        Det här är <em class="accent">verkliga signaler</em> Subtonal hittat.
+      </h2>
+      <p class="lede" style="margin-top: 18px; max-width: 660px;">
+        Anonymiserade exempel ur eval-uppsättningen. Varje rad är ett lead som föll utanför säljarens uppdrag, men som ett annat bolag i koncernen kunde lösa direkt.
+      </p>
+
+      <div class="leads-grid">
+
+        <div class="lead-mini">
+          <div class="lead-mini-head">
+            <span class="signal-dot"></span>
+            <span>Signal · ERP / e-handelintegration</span>
+          </div>
+          <div class="lead-mini-body">
+            <p class="quote">"Då är det inte automatik i det. Så då sitter någon och manuellt knackar det här."</p>
+            <p class="signal">Ordrar från e-handeln matas manuellt in i SAP Business One. Ingen integration. Kunden är medveten om problemet och redo att lösa det.</p>
+            <div class="opening-label">Öppningsreplik</div>
+            <p class="opening">"Jag hörde från en koncernkollega att era ordrar från e-handeln knackas in manuellt i SAP Business One. Vi har automatiserat exakt det flödet för flera B2B-distributörer."</p>
+          </div>
+        </div>
+
+        <div class="lead-mini">
+          <div class="lead-mini-head">
+            <span class="signal-dot"></span>
+            <span>Signal · Rekrytering</span>
+          </div>
+          <div class="lead-mini-body">
+            <p class="quote">"Vi behöver dra på tre roller till sälj nu, men vi har ingen som driver det internt."</p>
+            <p class="signal">Rekryteringsbehov utan resurs internt. Säljpositioner specifikt. Tidskritiskt.</p>
+            <div class="opening-label">Öppningsreplik</div>
+            <p class="opening">"En koncernkollega nämnde att ni ska anställa tre säljare men saknar någon som driver rekryteringen. Vi specialiserar oss på just sälj och har snittet på 5 veckor från brief till signerat avtal."</p>
+          </div>
+        </div>
+
+        <div class="lead-mini">
+          <div class="lead-mini-head">
+            <span class="signal-dot"></span>
+            <span>Signal · Marknad / lead-gen</span>
+          </div>
+          <div class="lead-mini-body">
+            <p class="quote">"Vi får inte ut tillräckligt mycket leads från LinkedIn. Det blir liksom inget av det."</p>
+            <p class="signal">Underpresterande lead-gen i organisk LinkedIn. Befintlig satsning utan ROI. Öppen för ny lösning.</p>
+            <div class="opening-label">Öppningsreplik</div>
+            <p class="opening">"Hörde från en koncernkollega att er LinkedIn-satsning inte ger leads. Vi har just det playbook som tar B2B-satsningar från 0 till bokade möten på två månader."</p>
+          </div>
+        </div>
+
+        <div class="lead-mini">
+          <div class="lead-mini-head">
+            <span class="signal-dot"></span>
+            <span>Signal · IT-infrastruktur</span>
+          </div>
+          <div class="lead-mini-body">
+            <p class="quote">"Vi har börjat fundera på att byta plattform. Det vi har idag är jättegammalt."</p>
+            <p class="signal">Aktivt utvärderar plattformsbyte. I tidig fas. Inget beslut taget.</p>
+            <div class="opening-label">Öppningsreplik</div>
+            <p class="opening">"En koncernkollega nämnde att ni utvärderar plattformsbyte. Vi har gjort exakt den övergången för flera SaaS-bolag de senaste två åren och kan dela vad vi sett funkar."</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VALIDITY -->
+  <section class="section">
+    <div class="shell">
+      <div class="validity">
+        <div>
+          <div class="section-tag on-dark">§ Pålitlighet</div>
+          <h3>Siffrorna gäller. <em>Repetitivt.</em></h3>
+        </div>
+        <div>
+          <p>Eval-loopen körs kontinuerligt. När triggers uppdateras körs hela testbatchen om för att se till att inga signaler regredierar i kvalitet. Det är inte en engångsmätning.</p>
+          <p>Ni får tillgång till metodiken om ni vill verifiera den själva. Ni kan också köra en blindeval på era egna transkript som en del av piloten. Inga svarta lådor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section warm">
+    <div class="shell">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto;">
+        <div class="section-tag" style="display: inline-block;">§ Nästa steg</div>
+        <h2 class="h1" style="margin-bottom: 22px;">Verifiera siffrorna med <em class="accent">era egna transkript.</em></h2>
+        <p class="lede" style="margin: 0 auto 28px;">
+          Vi kör 75 transkript gratis och levererar 10 leads. Ni ser exakt vad systemet hittar i era kundsamtal.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="pilot.html" class="btn btn-primary btn-arrow">Starta gratis</a>
+          <a href="kontakt.html" class="btn btn-ghost">Boka samtal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="row">
+      <div>
+        <div class="brand" style="color: var(--paper);"><span class="brand-mark"></span> Subtonal AI</div>
+        <p style="color: #c8c8cd; margin-top: 14px; font-size: 14px; max-width: 360px; line-height: 1.6;">
+          Cross-sell intelligence för koncerner. Vi läser era säljmöten och hittar leads ni redan har, men inte ser.
+        </p>
+      </div>
+      <div>
+        <h4>Sajt</h4>
+        <ul>
+          <li><a href="index.html">Hem</a></li>
+          <li><a href="sa-fungerar.html">Så fungerar det</a></li>
+          <li><a href="resultat.html">Resultat</a></li>
+          <li><a href="pilot.html">Pilot</a></li>
+          <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kon

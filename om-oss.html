@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om · Subtonal AI</title>
+<meta name="description" content="Vi har byggt B2B-pipelines i åratal. Subtonal är vad vi saknat. Tre principer vi inte gör avkall på.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero { padding: 72px 0 56px; border-bottom: 1px solid var(--line-soft); }
+  .page-hero h1 { font-size: clamp(38px, 5.4vw, 64px); line-height: 1.04; max-width: 880px; }
+  .page-hero h1 em { font-style: italic; color: var(--accent); }
+  .page-hero .lede { margin-top: 24px; max-width: 660px; }
+
+  /* origin */
+  .origin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  @media (max-width: 820px) { .origin { grid-template-columns: 1fr; gap: 28px; } }
+  .origin .body { font-size: 17px; line-height: 1.7; color: var(--ink-soft); }
+  .origin .body p + p { margin-top: 16px; }
+
+  /* team */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+  @media (max-width: 820px) { .team-grid { grid-template-columns: 1fr; } }
+
+  .person {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .person .photo {
+    aspect-ratio: 4/5;
+    background: var(--paper-warm);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .person .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .person .photo .fallback {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 96px;
+    color: var(--accent);
+  }
+  .person .info { padding: 26px 28px 30px; }
+  .person h3 {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .person .role {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .person p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .person .contact {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    border-top: 1px solid var(--line-soft);
+    padding-top: 14px;
+  }
+
+  /* values */
+  .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 48px; }
+  .value {
+    padding: 28px 28px 32px;
+    border-right: 1px solid var(--line-dark);
+  }
+  .value:last-child { border-right: none; }
+  .value .num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 40px;
+    color: var(--accent-soft);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .value h4 {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--paper);
+    margin-bottom: 10px;
+  }
+  .value p { font-size: 14px; line-height: 1.6; color: #c8c8cd; }
+  @media (max-width: 820px) {
+    .values { grid-template-columns: 1fr; }
+    .value { border-right: none; border-bottom: 1px solid var(--line-dark); }
+    .value:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="shell row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> Subtonal</a>
+    <button class="nav-toggle" aria-label="Meny" onclick="document.getElementById('nav').classList.toggle('open')">Meny</button>
+    <nav class="nav" id="nav">
+      <a href="index.html">Hem</a>
+      <a href="sa-fungerar.html">Så fungerar det</a>
+      <a href="resultat.html">Resultat</a>
+      <a href="pilot.html">Pilot</a>
+      <a href="om-oss.html" class="active">Om oss</a>
+      <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="shell">
+      <div class="eyebrow">§ Om</div>
+      <h1>Vi har byggt B2B-pipelines i åratal. <em>Subtonal är vad vi saknat.</em></h1>
+      <p class="lede">
+        Vi vet hur svårt det är att hålla en konsekvent och kvalitativ pipeline. Kvalitén på möten är minst lika viktig som kvantiteten, men affären är det som räknas. Och affär kräver timing på konkreta behov.
+      </p>
+    </div>
+  </section>
+
+  <!-- ORIGIN (kort) -->
+  <section class="section">
+    <div class="shell narrow">
+      <div class="section-tag">§ Var det kom ifrån</div>
+      <h2 class="h1" style="margin-bottom: 26px;">Optimera det som <em class="accent">redan finns.</em></h2>
+      <p class="body" style="font-size: 18px; line-height: 1.7;">
+        Vi har jobbat med att kvalificera och kvantifiera B2B-leads i åratal. Det vi lärt oss är att det som avgör en affär inte är hur många möten ni tar, utan att agera på konkreta behov i rätt ögonblick.
+      </p>
+      <p class="body" style="font-size: 18px; line-height: 1.7; margin-top: 16px;">
+        Därför byggde vi Subtonal för att optimera det ni redan har, inte tvinga er till något nytt. Inget nytt system. Ingen ny plattform. Bara att effektivisera det som redan finns hos er, så signalerna som annars hade försvunnit fångas och hittar rätt mottagare.
+      </p>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section dark">
+    <div class="shell">
+      <div class="eyebrow on-dark">§ Hur vi jobbar</div>
+      <h2 class="h1" style="color: var(--paper); max-width: 720px;">
+        Tre principer vi inte gör <em class="accent">avkall på.</em>
+      </h2>
+
+      <div class="values">
+        <div class="value">
+          <div class="num">01</div>
+          <h4>Mätbart, inte påstått</h4>
+          <p>Varje siffra på sajten kan reproduceras. Eval-loopen är publik. Vi visar metodiken och kör om den när ni frågar.</p>
+        </div>
+        <div class="value">
+          <div class="num">02</div>
+          <h4>Inga hallucineringar</h4>
+          <p>Om systemet inte kan citera kunden ordagrant kommer signalen inte ut. 5 skarpa signaler slår 12 vaga.</p>
+        </div>
+        <div class="value">
+          <div class="num">03</div>
+          <h4>Friktionsfritt</h4>
+          <p>Säljaren gör inget nytt. Inget nytt system, inga nya rutiner, inga inloggningar. Värdet uppstår utan att någon behöver tänka på det.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="shell">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto;">
+        <div class="section-tag" style="display: inline-block;">§ Vill ni veta mer?</div>
+        <h2 class="h1" style="margin-bottom: 22px;">Boka ett samtal med <em class="accent">oss.</em></h2>
+        <p class="lede" style="margin: 0 auto 28px;">
+          Inga formulär. Inga gatekeepers. Vi svarar inom 24 timmar.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="mailto:Niklas@brightsales.se?subject=Subtonal%20%E2%80%93%20Boka%20m%C3%B6te" class="btn btn-primary btn-arrow">Boka möte</a>
+          <a href="pilot.html" class="btn btn-ghost">Få 10 gratis leads</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="row">
+      <div>
+        <div class="brand" style="color: var(--paper);"><span class="brand-mark"></span> Subtonal AI</div>
+        <p style="color: #c8c8cd; margin-top: 14px; font-size: 14px; max-width: 360px; line-height: 1.6;">
+          Cross-sell intelligence för koncerner. Vi läser era säljmöten och hittar leads ni redan har, men inte ser.
+        </p>
+      </div>
+      <div>
+        <h4>Sajt</h4>
+        <ul>
+          <li><a href="index.html">Hem</a></li>
+          <li><a href="sa-fungerar.html">Så fungerar det</a></li>
+          <li><a href="resultat.html">Resultat</a></li>
+          <li><a href="pilot.html">Pilot</a></li>
+          <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:Niklas@brightsales.se">Niklas@brightsales.se</a></li>
+          

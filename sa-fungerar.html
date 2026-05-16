@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Så fungerar det · Subtonal AI</title>
+<meta name="description" content="Så fungerar Subtonal: Kartlägg, Analysera, Matcha, Leverera. Säljaren gör ingenting nytt.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero { padding: 72px 0 56px; border-bottom: 1px solid var(--line-soft); }
+  .page-hero h1 { font-size: clamp(38px, 5.4vw, 64px); line-height: 1.04; max-width: 880px; }
+  .page-hero h1 em { font-style: italic; color: var(--accent); }
+  .page-hero .lede { margin-top: 24px; max-width: 660px; }
+
+  /* steps */
+  .steps { display: flex; flex-direction: column; }
+  .step {
+    display: grid;
+    grid-template-columns: 140px 1.1fr 1fr;
+    gap: 56px;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 92px;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+  }
+  .step-num small {
+    display: block;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+  .step h2 { font-size: clamp(28px, 3vw, 38px); line-height: 1.1; margin-bottom: 14px; }
+  .step h2 em { font-style: italic; color: var(--accent); }
+  .step .step-body { font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .step .detail-card {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    padding: 22px 24px;
+    border-radius: 4px;
+  }
+  .step .detail-card h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .step .detail-card ul { list-style: none; }
+  .step .detail-card li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 14px;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 10px;
+  }
+  .step .detail-card li:last-child { border-bottom: none; }
+  .step .detail-card li::before {
+    content: "→";
+    color: var(--accent);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 920px) {
+    .step { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+    .step-num { font-size: 64px; }
+  }
+
+  /* who section */
+  .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  @media (max-width: 820px) { .who-grid { grid-template-columns: 1fr; } }
+
+  .who-illustration {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 36px;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .who-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 14px;
+  }
+  .who-row:last-child { border-bottom: none; }
+  .who-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4px 9px;
+    border-radius: 3px;
+  }
+  .who-tag.accent { background: var(--accent); }
+  .who-row .arrow { color: var(--accent); font-weight: 500; }
+
+  /* moat block */
+  .moat {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 48px;
+  }
+  .moat-cell { padding: 28px 28px 32px; border-right: 1px solid var(--line-dark); }
+  .moat-cell:last-child { border-right: none; }
+  .moat-cell h4 {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: var(--paper);
+  }
+  .moat-cell p { font-size: 14px; line-height: 1.6; color: #c8c8cd; }
+  @media (max-width: 820px) {
+    .moat { grid-template-columns: 1fr; }
+    .moat-cell { border-right: none; border-bottom: 1px solid var(--line-dark); }
+    .moat-cell:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="shell row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span> Subtonal</a>
+    <button class="nav-toggle" aria-label="Meny" onclick="document.getElementById('nav').classList.toggle('open')">Meny</button>
+    <nav class="nav" id="nav">
+      <a href="index.html">Hem</a>
+      <a href="sa-fungerar.html" class="active">Så fungerar det</a>
+      <a href="resultat.html">Resultat</a>
+      <a href="pilot.html">Pilot</a>
+      <a href="om-oss.html">Om oss</a>
+      <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="shell">
+      <div class="eyebrow">§ Så fungerar det</div>
+      <h1>Säljaren gör <em>ingenting nytt</em>. Leadet dyker upp i ett annat bolag.</h1>
+      <p class="lede">
+        Subtonal kopplas mot transkripten ni redan skapar och levererar leads till rätt bolag i rätt person. Inga inloggningar, inga nya rutiner, inga nya verktyg att lära sig.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE 4 STEPS -->
+  <section class="section">
+    <div class="shell">
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num"><em>01</em><small>Kartlägg</small></div>
+          <div>
+            <h2>Transkripten skapas <em>ändå</em>.</h2>
+            <p class="step-body">Bolagen i koncernen använder redan en notetaker för sina möten. Subtonal kopplas mot den strömmen och tar emot transkripten i bakgrunden. Säljaren märker ingenting. Beteendet i mötet är oförändrat.</p>
+          </div>
+          <div class="detail-card">
+            <h4>Stödda källor</h4>
+            <ul>
+              <li>Meetric / BrightSales Insights</li>
+              <li>Fireflies</li>
+              <li>Agana</li>
+              <li>Microsoft Teams</li>
+              <li>Andra notetakers vid behov</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num"><em>02</em><small>Analysera</small></div>
+          <div>
+            <h2>Vi läser <em>vad ingen annan läser.</em></h2>
+            <p class="step-body">Säljaren fokuserar på sitt eget uppdrag. Kunden nämner i förbifarten att de matar in ordrar manuellt i SAP, att de funderar på att anställa, att de ska byta ERP-system. Subtonal identifierar dessa ögonblick automatiskt. Systemet separerar verkliga köpintentioner från beskrivande tillstånd.</p>
+          </div>
+          <div class="detail-card">
+            <h4>Vad systemet letar efter</h4>
+            <ul>
+              <li>Uttryckta köpintentioner</li>
+              <li>Latenta behov utanför samtalets syfte</li>
+              <li>Pain points som passar ett annat bolag</li>
+              <li>Förbehåll, friktion, manuella processer</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num"><em>03</em><small>Matcha</small></div>
+          <div>
+            <h2>Rätt bolag, <em>rätt tjänst.</em></h2>
+            <p class="step-body">Varje signal kopplas till det bolag i koncernen som faktiskt kan lösa behovet. En hardgate-arkitektur filtrerar bort intern konkurrens. Routing-accuracy är 86%. Inga signaler hamnar fel.</p>
+          </div>
+          <div class="detail-card">
+            <h4>Routing-logik</h4>
+            <ul>
+              <li>Triggerbeskrivning per bolag</li>
+              <li>Hardgates för affärsregler</li>
+              <li>Filtrering av intern konkurrens</li>
+              <li>Eval-loop som verifierar routingen</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num"><em>04</em><small>Leverera</small></div>
+          <div>
+            <h2>Mail till <em>rätt person.</em></h2>
+            <p class="step-body">Varje bolag har en tilldelad mottagare. När en signal identifieras dyker den upp i inkorgen, komplett med direktcitat och öppningsreplik. Säljaren godkänner med ett klick. Kollegan bokar mötet. Två klick från lead till action.</p>
+          </div>
+          <div class="detail-card">
+            <h4>Innehåll i leadet</h4>
+            <ul>
+              <li>Direktcitat från transkriptet</li>
+              <li>Vad det signalerar</li>
+              <li>Färdig öppningsreplik</li>
+              <li>Mötesreferens och datum</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GROWTH MANAGER -->
+  <section class="section warm">
+    <div class="shell">
+      <div class="who-grid">
+        <div>
+          <div class="section-tag">§ Nyckelanvändaren</div>
+          <h2 class="h1">Growth managern <em class="accent">konfigurerar</em>. Bolagen tar emot.</h2>
+          <p class="body" style="margin-top: 22px;">
+            Den som har övergripande ansvar för cross-selling i koncernen är Subtonals primära användare. I ett dedikerat UI sätter growth managern upp regler, väljer vem som tar emot vilka leads, och styr prioritering. Bolagen själva loggar inte in någonstans. Leadet kommer per mail.
+          </p>
+          <p class="body" style="margin-top: 14px;">
+            Subtonal är infrastrukturen som gör att en growth manager faktiskt kan arbeta systematiskt med cross-selling, inte bara ad hoc.
+          </p>
+        </div>
+
+        <div class="who-illustration">
+          <div class="who-row">
+            <span class="who-tag accent">Growth Manager</span>
+            <span style="color: var(--ink); font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em;">Konfigurerar regler &amp; routing</span>
+          </div>
+          <div class="who-row">
+            <span class="who-tag">Bolag A</span>
+            <span class="arrow">→</span>
+            <span style="font-family: var(--mono); font-size: 12px; color: var(--muted);">Tar emot leads per mail</span>
+          </div>
+          <div class="who-row">
+            <span class="who-tag">Bolag B</span>
+            <span class="arrow">→</span>
+            <span style="font-family: var(--mono); font-size: 12px; color: var(--muted);">Tar emot leads per mail</span>
+          </div>
+          <div class="who-row">
+            <span class="who-tag">Bolag C</span>
+            <span class="arrow">→</span>
+            <span style="font-family: var(--mono); font-size: 12px; color: var(--muted);">Tar emot leads per mail</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOAT -->
+  <section class="section dark">
+    <div class="shell">
+      <div class="eyebrow on-dark">§ Vad som gör det svårt att kopiera</div>
+      <h2 class="h1" style="color: var(--paper); max-width: 720px;">
+        Det är inte AI:n. Det är <em class="accent">domänmodellen.</em>
+      </h2>
+      <p class="body on-dark" style="margin-top: 20px; max-width: 680px;">
+        Notetakers som Gong, Chorus och Meetric läser samtal för att träna säljaren. Subtonal automatiserar leads inom koncerner. Det kräver något annat.
+      </p>
+
+      <div class="moat">
+        <div class="moat-cell">
+          <h4>Triggerbeskrivningar</h4>
+          <p>Per bolag, per tjänst. Vad är ett relevant ögonblick för konsultbolaget? För SaaS-bolaget? Det är affärsmodellen kodad i triggers.</p>
+        </div>
+        <div class="moat-cell">
+          <h4>Hardgate-arkitektur</h4>
+          <p>Affärsregler i lager som filtrerar bort intern konkurrens, dubbla träffar och felaktig routing. Inte ett LLM-anrop, utan en pipeline.</p>
+        </div>
+        <div class="moat-cell">
+          <h4>Eval-metodik</h4>
+          <p>Blindeval mot riktiga transkript. Siffrorna är inte hypoteser, de är mätningar. 82% precision är resultatet av att kontinuerligt mäta och justera.</p>
+        </div>
+      </div>
+
+      <a href="resultat.html" class="btn btn-on-dark btn-arrow" style="margin-top: 48px;">Se siffrorna i detalj</a>
+    </div>
+  </section>
+
+  <!-- LEVERANS -->
+  <section class="section">
+    <div class="shell">
+      <div class="section-tag">§ Leverans</div>
+      <h2 class="h1" style="max-width: 760px;">Leads levereras <em class="accent">direkt till er.</em></h2>
+      <p class="body" style="margin-top: 22px; max-width: 720px;">
+        Inget verktyg att logga in i. Ingen ny rutin att lära sig. Varje signal landar i rätt persons inbox med direktcitat, signalförklaring och en färdig öppningsreplik. Klar att agera på.
+      </p>
+
+      <div class="leverans-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 48px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+        <div style="padding: 32px 28px 36px; border-right: 1px solid var(--line);">
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Till rätt person</div>
+          <p style="font-size: 15px; line-height: 1.65; color: var(--ink-soft);">Varje bolag i koncernen har en utpekad mottagare. Leadet går direkt dit, utan mellanled och utan delade kanaler.</p>
+        </div>
+        <div style="padding: 32px 28px 36px; border-right: 1px solid var(--line);">
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Med full kontext</div>
+          <p style="font-size: 15px; line-height: 1.65; color: var(--ink-soft);">Direktcitat, vad signalen signalerar, mötesreferens och en öppningsreplik som funkar. Inget extra researcharbete.</p>
+        </div>
+        <div style="padding: 32px 28px 36px;">
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Utan friktion</div>
+          <p style="font-size: 15px; line-height: 1.65; color: var(--ink-soft);">Säljaren godkänner. Kollegan bokar mötet. Ingen ny inloggning, ingen ny vana, ingen ny rutin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section warm">
+    <div class="shell">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto;">
+        <div class="section-tag" style="justify-content: center; display: inline-block;">§ Nästa steg</div>
+        <h2 class="h1" style="margin-bottom: 22px;">Skicka 75 transkript. <em class="accent">Få 10 leads.</em></h2>
+        <p class="lede" style="margin: 0 auto 28px;">
+          Ni testar utan åtaganden. Vi kör era egna transkript och visar vad vi hittar.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="pilot.html" class="btn btn-primary btn-arrow">Läs om pilot &amp; pris</a>
+          <a href="kontakt.html" class="btn btn-ghost">Kontakta oss</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="row">
+      <div>
+        <div class="brand" style="color: var(--paper);"><span class="brand-mark"></span> Subtonal AI</div>
+        <p style="color: #c8c8cd; margin-top: 14px; font-size: 14px; max-width: 360px; line-height: 1.6;">
+          Cross-sell intelligence för koncerner. Vi läser era säljmöten och hittar leads ni redan har, men inte ser.
+        </p>
+      </div>
+      <div>
+        <h4>Sajt</h4>
+        <ul>
+          <li><a href="index.html">Hem</a></li>
+          <li><a href="sa-fungerar.html">Så fungerar det</a></li>
+          <li><a href="resultat.html">Resultat</a></li>
+          <li><a href="pilot.html">Pilot</a></li>
+          <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:Niklas@brightsales.se">Niklas@brightsales.se</a></li>
+          <li><a href="mailto:Pelle@brightsales.se">Pelle@brightsales.se</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Subtonal AI</span>
+      <span>Stockholm</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @media
